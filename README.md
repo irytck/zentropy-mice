@@ -1,8 +1,8 @@
 # Zentropy MICE — Data & Calculadora
 
 Resumen rápido:
-- Proyecto: medir entropía socioeconómica de eventos MICE en Valencia.
-- Estado: esquema DB creado (schema_zentropy.sql), notebooks y scripts ETL iniciales, calculadora MVP basada en Excel convertida a script Python.
+- Proyecto: medir entropía urbana del turismo MICE en Valencia.
+- Estado: esquema DB creado (schema_zentropy.sql), notebooks y scripts ETL iniciales, calculadora materia-energia.
 - Cómo levantar (local con Colima + Docker CLI):
   1. `colima start`
   2. `docker compose up -d`
