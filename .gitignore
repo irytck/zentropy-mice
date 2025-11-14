@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+.venv/
+venv/
+pip-wheel-metadata/
+*.egg-info/
+dist/
+
+# Jupyter
+.ipynb_checkpoints
+
+# macOS
+.DS_Store
+
+# Data & DB
+/data/
+pgdata/
+*.sqlite
+*.db
+*.dump
+*.sql.gz
+
+# Env / secrets
+.env
+.env.*
+secrets.json
+credentials.json
+
+# Docker
+docker-compose.override.yml
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
