@@ -17,6 +17,7 @@ Ingest & ETL:
 - bms: ingestion -> resample -> aggregates -> store in bms_timeseries.
 
 Entregables y próximos pasos:
-- completar definiciones de variables del bus y sensores.
+- completar definiciones de variables, sensores.
 - formalizar funciones de la calculadora (S_energy, S_material, S_information), pesos y normalizaciones.
+
 

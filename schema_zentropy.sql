@@ -2,7 +2,7 @@
 -- Inicial schema para Proyecto Zentropy MICE (Postgres + TimescaleDB)
 
 CREATE EXTENSION IF NOT EXISTS timescaledb;
-CREATE EXTENSION IF NOT EXISTS postgis; -- opcional, quitar si no necesitas geom
+CREATE EXTENSION IF NOT EXISTS postgis; -- para geom
 
 CREATE TABLE unit (
   unit_id SERIAL PRIMARY KEY,
@@ -51,6 +51,17 @@ CREATE TABLE participant (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
+CREATE TABLE participant_transport_km (
+  ptkm_id BIGSERIAL PRIMARY KEY,
+  participant_id BIGINT REFERENCES participant(participant_id) ON DELETE CASCADE,
+  congress_id INT REFERENCES congress(congress_id) ON DELETE CASCADE,
+  vehicle_id INT REFERENCES transport_vehicle(vehicle_id),
+  km NUMERIC NOT NULL,
+  source TEXT,
+  ingest_id TEXT,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
 CREATE TABLE survey_response (
   response_id BIGSERIAL PRIMARY KEY,
   congress_id INT REFERENCES congress(congress_id) ON DELETE CASCADE,
@@ -65,17 +76,28 @@ CREATE TABLE survey_response (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
-CREATE TABLE trip (
-  trip_id BIGSERIAL PRIMARY KEY,
+CREATE TABLE transport_vehicle (
+  vehicle_id SERIAL PRIMARY KEY,
+  vehicle_type TEXT UNIQUE NOT NULL,
+  energy_type TEXT NOT NULL,
+  consumption_per_km NUMERIC NOT NULL,
+  unit_id INT REFERENCES unit(unit_id),
+  notes TEXT
+);
+
+CREATE TABLE transport_energy_factor (
+  energy_type TEXT PRIMARY KEY,
+  kj_per_unit NUMERIC NOT NULL,
+  unit TEXT NOT NULL
+);
+
+CREATE TABLE participant_transport_energy (
+  pte_id BIGSERIAL PRIMARY KEY,
   participant_id BIGINT REFERENCES participant(participant_id),
   congress_id INT REFERENCES congress(congress_id),
-  origin_city TEXT,
-  origin_country_iso CHAR(2),
-  mode TEXT,
-  distance_km NUMERIC,
-  co2_kg NUMERIC,
-  energy_kwh_equiv NUMERIC,
-  created_at TIMESTAMPTZ DEFAULT now()
+  energy_kj NUMERIC NOT NULL,
+  computed_at TIMESTAMPTZ DEFAULT now(),
+  metadata JSONB
 );
 
 CREATE TABLE poi (

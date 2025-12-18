@@ -1,6 +1,6 @@
 # Zentropy MICE — Data & Calculadora
 
-Resumen rápido:
+Resumen:
 - Proyecto: medir entropía urbana del turismo MICE en Valencia.
 - Estado: esquema DB creado (schema_zentropy.sql), notebooks y scripts ETL iniciales, calculadora materia-energia.
 - Cómo levantar (local con Colima + Docker CLI):
@@ -9,6 +9,11 @@ Resumen rápido:
   3. `cat schema_zentropy.sql | docker compose exec -T db psql -U zentropy -d zentropy`
 - Estructura del repo: `notebooks/`, `src/etl/`, `src/calculator/`, `schema_zentropy.sql`, `docker-compose.yml`.
 - Importante: no subir datos sensibles. Usa `.env` para credenciales (no commit).
+
+## Data & Calculation Architecture
+
+- Transport energy model: [`docs/transport_energy_model.md`](docs/transport_energy_model.md)
+
 
 Próximos pasos:
 1. Finalizar ETL encuesta → cargar en `participant`, `survey_response`, `trip`, `consumption_item`.
