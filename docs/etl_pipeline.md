@@ -49,7 +49,18 @@ El ETL **no calcula entropía**, solo prepara los flujos.
 
 El ETL se divide en **cuatro capas lógicas**:
 
-RAW → CLEAN → AGGREGATED → CALCULATOR-READY
+## ETL Pipeline (estado actual)
+
+Encuesta:
+RAW (Excel original)
+→ CLEAN (CSV contractual, normalizado)
+→ EVENTS (participant, participant_transport_event)
+→ CALCULATION (energía, entropía)
+
+La capa CLEAN es el contrato estable entre encuesta y modelo.
+La tabla `participant` NO contiene respuestas de encuesta.
+Las respuestas se proyectan en tablas de eventos por dominio.
+
 ---
 
 ## 4. RAW layer — datos originales
@@ -95,44 +106,17 @@ RAW → CLEAN → AGGREGATED → CALCULATOR-READY
 
 ---
 
-## 6. AGGREGATED layer — agregación por participante
-
-### 6.1 Objetivo
-Crear **una representación coherente por participante**, donde cada variable sea cuantificable.
+## 6. EVENTS layer 
 
 ### 6.2 Transformaciones clave
 
 #### A. Movilidad
-- Agregar usos de transporte:
-  - `uso_bus_congreso + uso_bus_ocio`
-  - `uso_car_*`
-- Separar:
-  - transporte al congreso,
-  - transporte urbano/ocio.
 
 #### B. Alimentación
-- Agregar número total de comidas por tipo:
-  - carne roja,
-  - ave/pescado,
-  - marisco,
-  - otros.
 
 #### C. Compras
-- Agregar unidades por categoría:
-  - textiles,
-  - artesanía,
-  - alimentación,
-  - souvenirs.
 
 #### D. Alojamiento
-- Calcular noches totales en Valencia.
-- Normalizar tipo de alojamiento.
-
-### Output
-- Dataset **wide**, una fila por participante.
-- Sin factores físicos aún.
-
----
 
 ## 7. CALCULATOR-READY layer — modelo físico
 
